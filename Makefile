@@ -1,7 +1,7 @@
 all: myshell
 
-myshell: main.c
-	gcc main.c -o myshell
+myshell: myshell.c
+	gcc myshell.c -o myshell
 	
 clean:
 	rm -f myshell *.o

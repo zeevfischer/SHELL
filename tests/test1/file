@@ -1,0 +1,12 @@
+total 116
+-rwxrwxrwx 1 zeev zeev    81 Jun  4 17:58 Makefile
+-rwxrwxrwx 1 zeev zeev    49 Jun  3 01:31 colors.txt
+-rwxrwxrwx 1 zeev zeev     0 Jun  4 19:25 file
+drwxrwxrwx 1 zeev zeev  4096 Jun  4 18:26 images
+-rwxrwxrwx 1 zeev zeev  1077 Jun  3 14:16 key.c
+-rwxrwxrwx 1 zeev zeev 18396 Jun  4 19:20 main.c
+-rwxrwxrwx 1 zeev zeev 21800 Jun  4 19:25 myshell
+drwxrwxrwx 1 zeev zeev  4096 Jun  4 17:56 old
+-rwxrwxrwx 1 zeev zeev  1443 May 19 20:41 shell2.c
+-rwxrwxrwx 1 zeev zeev  4290 Jun  1 18:29 shell3.c
+-rwxrwxrwx 1 zeev zeev 54501 May 19 20:41 task1.pdf

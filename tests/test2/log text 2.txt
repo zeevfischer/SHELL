@@ -1,0 +1,78 @@
+hello: date >> myfile
+hello: cat myfile
+Tue Jun  4 22:11:46 IDT 2024
+hello: date -u >> myfile
+hello: cat myfile
+Tue Jun  4 22:11:46 IDT 2024
+Tue Jun  4 19:12:06 UTC 2024
+hello: wc -l < myfile
+wc: '<': No such file or directory
+ 2 myfile
+ 2 total
+hello: wc -l myfile
+2 myfile
+hello: prompt = hi:
+hi: mkdir mydir
+hi: cd mydir
+hi: pwd
+/mnt/c/Users/dovy4/Desktop/אוניברסיטה גיבוי 3.3.2022/שנה ד סמסטר ב/תגנות מתקדם/task1/mydir
+hi: touch file1 file2 file3
+hi: ls
+file1  file2  file3
+hi: !!
+ls
+file1  file2  file3
+hi: echo abc xyz
+abc xyz
+hi: ls
+file1  file2  file3
+hi: echo $?
+0
+hi: ls no_such_file
+ls: cannot access 'no_such_file': No such file or directory
+hi: echo $?
+2
+hi: ls no_such_file 2> file
+hi: 
+You typed Control-C!
+hi: cat > colors.txt
+blue
+black
+red
+red
+green
+blue
+green
+red
+red
+blue
+hi: cat colors.txt
+blue
+black
+red
+red
+green
+blue
+green
+red
+red
+blue
+hi: cat colors.txt | cat | cat | cat
+blue
+black
+red
+red
+green
+blue
+green
+red
+red
+blue
+hi: sort colors.txt | uniq -c | sort -r | head -3
+      4 red
+      3 blue
+      2 green
+hi: quit
+Exiting the shell...
+zeev@DESKTOP-3D6SNJV:/mnt/c/Users/dovy4/Desktop/אוניברסיטה גיבוי 3.3.2022/שנה
+ ד סמסטר ב/תגנות מתקדם/task1$ 

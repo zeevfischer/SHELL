@@ -1,0 +1,60 @@
+zeev@DESKTOP-3D6SNJV:/mnt/c/Users/dovy4/Desktop/אוניברסיטה גיבוי 3.3.2022/שנה ד סמסטר ב/תגנות מתקדם/task1$ make all && ./myshell
+gcc main.c -o myshell
+hello: ls
+Makefile    images  main.c   old       shell3.c
+colors.txt  key.c   myshell  shell2.c  task1.pdf
+hello: ls -l
+total 116
+-rwxrwxrwx 1 zeev zeev    81 Jun  4 17:58 Makefile
+-rwxrwxrwx 1 zeev zeev    49 Jun  3 01:31 colors.txt
+drwxrwxrwx 1 zeev zeev  4096 Jun  4 18:26 images
+-rwxrwxrwx 1 zeev zeev  1077 Jun  3 14:16 key.c
+-rwxrwxrwx 1 zeev zeev 18396 Jun  4 19:20 main.c
+-rwxrwxrwx 1 zeev zeev 21800 Jun  4 19:25 myshell
+drwxrwxrwx 1 zeev zeev  4096 Jun  4 17:56 old
+-rwxrwxrwx 1 zeev zeev  1443 May 19 20:41 shell2.c
+-rwxrwxrwx 1 zeev zeev  4290 Jun  1 18:29 shell3.c
+-rwxrwxrwx 1 zeev zeev 54501 May 19 20:41 task1.pdf
+hello: ls -l > file
+hello: ls -l nofile 2> mylog
+hello: ls -l >> mylog
+hello: prompt = zeev:
+zeev: echo zeev 123
+zeev 123
+zeev: echo $?
+0
+zeev: cd ..
+zeev: ls
+SHELL  task1  task1.zip  task_shell-main  task_shell-main.zip
+zeev: cd task1
+zeev: ls
+Makefile    file    key.c   mylog    old       shell3.c
+colors.txt  images  main.c  myshell  shell2.c  task1.pdf
+zeev: !!
+ls
+Makefile    file    key.c   mylog    old       shell3.c
+colors.txt  images  main.c  myshell  shell2.c  task1.pdf
+zeev:
+You typed Control-C!
+zeev: $person = zeev
+zeev: echo zeev
+zeev
+zeev: echo person
+person
+zeev: echo $person
+zeev
+zeev: read name
+Enter value: david
+zeev: echo $name
+david
+zeev: if date | grep Fri
+then
+echo "123"
+else
+echo "456"
+fi
+456
+zeev: quit
+Exiting the shell...
+zeev@DESKTOP-3D6SNJV:/mnt/c/Users/dovy4/Desktop/אוניברסיטה גיבוי 3.3.2022/שנה
+ ד סמסטר ב/תגנות מתקדם/task1$

@@ -82,21 +82,19 @@ int main() {
     char *argv1[10][10];
     char *argv2[10];
     char prompt[50] = "hello:";  // Default prompt
-    int repeat_last_command = 0;  // Flag to indicate whether !! was invoked
     int line_down = 1;
     int isRunning;
+    int is_redo_last_command = 0;
     ////////////// variables //////////////
-
-    // this function is to handel the arrow keys !!!
-    enableRawMode();  // Enable raw mode
-
     while (1) {
+        enableRawMode();  // Enable raw mode
         for(int i = 0;i<1024;i++)
         {
             command[i] = '\0';
         }
         printPrompt(prompt);
         line_down = 1;
+        is_redo_last_command = 0;
         
         ///////////// arrow key handling /////////////
         // Reading character by character to detect arrow keys and handle backspace
@@ -125,7 +123,11 @@ int main() {
                 if (read(STDIN_FILENO, &seq[1], 1) == -1) break;
                 if (seq[0] == '[') {
                     if (seq[1] == 'A') {  // Up arrow
+                    // printf("history count = %d\n",history_count);
+                    // fflush(stdout);
                         if (history_count > 0) {
+                            // printf("history index = %d\n",history_index);
+                            // fflush(stdout);
                             if (history_position == -1)
                             {
                                 history_position = history_index;
@@ -147,14 +149,23 @@ int main() {
                         }
                     } else if (seq[1] == 'B') {  // Down arrow
                         if (history_count > 0 && history_position != -1) {
-                            history_position = (history_position + 1) % HISTORY_SIZE;
+                            history_position = history_position + 1;
                             if (history_position >= history_count) {
+                                history_position = 20;
+                                // printf("\nin if");
+                                // printf("\nhistory pos = %d\n ",history_position);
+                                // printf("history count = %d\n ",history_count);
+                                fflush(stdout);
                                 clearLine();
                                 printPrompt(prompt);
-                                history_position = -1;
+                                // history_position = -1;
                                 pos = 0;
                                 command[0] = '\0';
                             } else {
+                                // printf("\nin else");
+                                // printf("\nhistory pos = %d\n ",history_position);
+                                // printf("history count = %d\n ",history_count);
+                                fflush(stdout);
                                 clearLine();
                                 printPrompt(prompt);
                                 printf("%s", history[history_position]);
@@ -197,6 +208,7 @@ int main() {
         // this command dose not go in the history as a command if executed 
         if (strcmp(command, "!!") == 0)
         {
+            is_redo_last_command = 1;
             line_down = 0;
             printf("\n");
             if (strlen(last_command) == 0)
@@ -209,7 +221,6 @@ int main() {
                 strcpy(command, last_command);
                 printf("%s", command); // Print the last command
                 fflush(stdout); // Flush the output buffer
-                repeat_last_command = 1; // Set the flag to indicate !! was invoked
             }
         } 
         else // update history with the command not "!!" as a command 
@@ -220,6 +231,10 @@ int main() {
                 strcpy(history[history_index], command);
                 history_index = (history_index + 1) % HISTORY_SIZE;
                 history_count++;
+                if(history_index == 0)
+                {
+                    history_index = 20;
+                }
             } else {
                 // Shift the history to make space for the new command
                 for (i = 0; i < HISTORY_SIZE - 1; i++) {
@@ -255,6 +270,7 @@ int main() {
         /* Is command IF/ELSE bash flow */
         if (command[0] == 'i' && command[1] == 'f')
         {
+            line_down = 0;
             disableRawMode();
             // printf(" enter if ");
             // printf("\ncommand = %s " ,command);
@@ -315,6 +331,7 @@ int main() {
 
         if (piping) {
             line_down = 0;
+            printf("\n");
             if (fork() == 0) {
                 execvp("bash", (char *[]){"bash", "-c", command2, NULL});
             }
@@ -431,6 +448,7 @@ int main() {
             redirect_stderr = 1;
             argv1[0][argc1[0] - 2] = NULL;
             outfile = argv1[0][argc1[0] - 1];
+            printf("\n");
         }
         // Check for stdout append redirection
         else if (argc1[0] > 1 && !strcmp(argv1[0][argc1[0] - 2], ">>")) {
@@ -507,6 +525,12 @@ int main() {
             }
             else 
             {
+                disableRawMode();
+                if(is_redo_last_command == 1)
+                {
+                    printf("\n");
+                }
+                fflush(stdout);
                 execvp(argv1[0][0], argv1[0]);
                 perror("execvp"); exit(1);
             }
@@ -525,8 +549,6 @@ int main() {
             retid = wait(&status);
             if (retid < 0) perror("wait");
         }
-        /* Reset the repeat_last_command flag */
-        repeat_last_command = 0;
         for(int i = 0;i<1024;i++)
         {
             command[i] = '\0';
